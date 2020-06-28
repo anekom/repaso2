@@ -24,18 +24,37 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+    	
+    	Lista list = new Lista();
+    	
         final VerticalLayout layout = new VerticalLayout();
         
         final TextField name = new TextField();
-        name.setCaption("Type your name here:");
+        name.setCaption("Type product name here:");
+        
+        final TextField categ = new TextField();
+        categ.setCaption("Type cathegory here:");
+        
+        final TextField price = new TextField();
+        price.setCaption("Type price here:");
+        
+        final TextField ean = new TextField();
+        ean.setCaption("Type ean here:");
 
         Button button = new Button("Click Me");
         button.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
+        	
+        	Producto p = new Producto(name.getValue(), categ.getValue(), Integer.parseInt(price.getValue()), ean.getValue());
+            layout.addComponent(new Label("product " + p.getNombre() 
+                    + "registered correctly"));
+            
+            list.addProducto(p);
+            
+            generadorEAN.generador(p);
+            
         });
         
-        layout.addComponents(name, button);
+        layout.addComponents(name, categ, price, ean,  button);
         
         setContent(layout);
     }

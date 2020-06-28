@@ -12,14 +12,16 @@ import com.google.zxing.oned.EAN13Writer;
 
 public class generadorEAN {
 	
-	public static void generador() {
+	public static void generador(Producto p) {
+		
+		String ruta = "productos/"+p.getNombre()+".png";
 		
 		EAN13Writer ean13writer = new EAN13Writer();
 		BitMatrix bitMatrix;
 		try {
 			
-			bitMatrix = ean13writer.encode("978020137962", BarcodeFormat.EAN_13, 300, 100);
-			Path path = FileSystems.getDefault().getPath("imagen.png");
+			bitMatrix = ean13writer.encode(p.getEan(), BarcodeFormat.EAN_13, 300, 100);
+			Path path = FileSystems.getDefault().getPath(ruta);
 			MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 		
 		} catch (WriterException e) {
